@@ -54,7 +54,7 @@ class Comic(models.Model):
 class WishList(models.Model):
     id = models.BigAutoField(db_column='ID', primary_key=True)
     user = models.ForeignKey(
-        User, verbose_name='user', on_delete=models.CASCADE, related_name='wish'
+        User, verbose_name='user', on_delete=models.CASCADE,
     )
     comic = models.ForeignKey(
         Comic, verbose_name='comic', on_delete=models.CASCADE,

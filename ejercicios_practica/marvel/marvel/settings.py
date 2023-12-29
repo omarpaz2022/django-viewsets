@@ -43,14 +43,10 @@ BASE_APPS = [
 ]
 
 # Acá van las apps de 3ros que necesitamos agregar para que Django las encuentre.
-THIRD_APPS = [
-    'rest_framework',
-    'rest_framework.authtoken',
-    'drf_yasg',
-]
+THIRD_APPS = ['rest_framework', 'rest_framework.authtoken', 'drf_yasg', 'django_filters']
 
 # Acá van las apps que creamos nosotros.
-LOCAL_APPS = ['e_commerce',]
+LOCAL_APPS = ['e_commerce']
 
 INSTALLED_APPS = BASE_APPS + THIRD_APPS + LOCAL_APPS
 
@@ -68,24 +64,6 @@ INSTALLED_APPS = BASE_APPS + THIRD_APPS + LOCAL_APPS
 #     'rest_framework.authtoken',
 #     'drf_yasg',
 # ]
-
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    # Indicamos el tipo de paginado, y la cantidad de resultados a mostrar por página.
-    # Ahora nuestras vistas genéricas van a tener paginado utilizando la clase
-    # "PageNumberPagination".
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
-}
-
 
 
 MIDDLEWARE = [
@@ -120,6 +98,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'marvel.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -151,6 +142,7 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
